@@ -1,0 +1,24 @@
+{
+  "sqlite_db_path": "data/quality_record.db",
+  "table_name": "quality_record",
+  "invalid_table_name": "quality_record_invalid",
+  "columns": [
+    "批号",
+    "工单号",
+    "物料品名",
+    "物料描述",
+    "物料规格",
+    "生产日期",
+    "检查项目",
+    "标准参数",
+    "检验参数(标准参数为数字时无需填写)",
+    "设备名称",
+    "IsOK",
+    "检验值",
+    "生产订单编号",
+    "客户名称"
+  ],
+  "buffer_capacity": 3000,
+  "flush_threshold": 2500,
+  "progress_print_every": 100
+}

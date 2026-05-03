@@ -1,0 +1,17 @@
+{
+  "name": "work_record",
+  "project_name_column": "项目名称",
+  "project_value_column": "项目记录结果",
+  "index_key_set": ["批号", "物料品号", "创建日期"],
+  "object_key_set": ["物料品名", "创建日期", "设备名称", "备注信息"],
+  "variable_key_set": [
+    "实际生产速度（m/min）",
+    "缆芯外径（mm)",
+    "挤出内模(mm)",
+    "挤出外模(mm)",
+    "护套外径(mm)",
+    "螺杆速度(rpm)-(挤塑主机速度)（转/分）",
+    "螺杆电流（A）",
+    "生产速度（米/分）"
+  ]
+}

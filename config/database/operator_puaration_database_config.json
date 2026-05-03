@@ -1,0 +1,5 @@
+{
+  "sqlite_db_path": "data/operator_puaration_stats.db",
+  "table_name": "operator_puaration_stats",
+  "columns": ["操机手", "工艺参数向量", "出现次数", "不同向量数量", "纯度"]
+}

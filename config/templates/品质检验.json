@@ -1,0 +1,19 @@
+{
+  "name": "work_record",
+  "project_name_column": "检查项目",
+  "project_value_column": "检验值",
+  "index_key_set": ["批号", "物料品名", "生产日期", "检查项目"],
+  "object_key_set": [
+    "工单号",
+    "物料描述",
+    "物料规格",
+    "标准参数",
+    "检验参数(标准参数为数字时无需填写)",
+    "设备名称",
+    "IsOK",
+    "检验值",
+    "生产订单编号",
+    "客户名称"
+  ],
+  "variable_key_set": []
+}

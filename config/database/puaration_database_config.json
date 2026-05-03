@@ -1,0 +1,23 @@
+{
+  "sqlite_db_path": "data/puaration_stats.db",
+  "table_name": "puaration_stats",
+  "invalid_table_name": "puaration_stats_invalid",
+  "columns": [
+    "物料品号",
+    "缆芯外径",
+    "护套外径",
+    "挤出内模",
+    "挤出外模",
+    "螺杆速度",
+    "螺杆电流",
+    "实际生产速度",
+    "设备名称",
+    "工艺参数向量",
+    "出现次数",
+    "不同向量数量",
+    "纯度"
+  ],
+  "buffer_capacity": 1000,
+  "flush_threshold": 500,
+  "progress_print_every": 100
+}

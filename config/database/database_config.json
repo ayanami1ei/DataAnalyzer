@@ -1,0 +1,25 @@
+{
+  "host": "127.0.0.1",
+  "user": "SoftWareDesign",
+  "password": "SWD#user#local#2026",
+  "db_name": "工序记录明细",
+  "table_name": "work_record",
+  "columns": [
+    "批号",
+    "物料品名",
+    "创建日期",
+    "设备名称",
+    "备注信息",
+    "实际生产速度（m/min）",
+    "缆芯外径（mm)",
+    "挤出内模(mm)",
+    "挤出外模(mm)",
+    "护套外径(mm)",
+    "螺杆速度(rpm)-(挤塑主机速度)（转/分）",
+    "螺杆电流（A）",
+    "生产速度（米/分）"
+  ],
+  "buffer_capacity": 3000,
+  "flush_threshold": 2500,
+  "progress_print_every": 100
+}
