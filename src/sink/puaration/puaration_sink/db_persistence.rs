@@ -10,7 +10,7 @@ use crate::{
     },
 };
 
-impl<SinkType: crate::sink::data_sink::DataSink> PuarationSink<SinkType> {
+impl PuarationSink {
     fn build_db_row_values(
         &self,
         columns: &[String],

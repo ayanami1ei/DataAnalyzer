@@ -24,7 +24,7 @@ fn build_data(remark: &str, core_od: &str, outer_die: &str) -> Data {
 
 #[test]
 fn sink_should_compute_operator_puaration() {
-    let mut sink = OperatorPuarationSink::new(EndSinkType {});
+    let mut sink = OperatorPuarationSink::new(Box::new(EndSinkType {}));
 
     let mut op1_v1 = build_data("返工   主机手杜伟   跟班黄刚超", "1", "4");
     let mut op1_v1_dup = build_data("返工   主机手杜伟   跟班黄刚超", "1", "4");

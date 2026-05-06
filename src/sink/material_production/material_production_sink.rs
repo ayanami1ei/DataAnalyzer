@@ -7,8 +7,7 @@ use crate::{
     data::data::Data,
     error::Error,
     sink::{
-        data_sink::DataSink,
-        material_production::material_production_stat::MaterialProductionStat,
+        data_sink::DataSink, material_production::material_production_stat::MaterialProductionStat,
     },
 };
 
@@ -18,13 +17,13 @@ const OUTPUT_JSON_PATH: &str = "data/material_production_stats.json";
 const OUTPUT_DB_PATH: &str = "data/material_production_stats.db";
 const OUTPUT_TABLE: &str = "material_production_stats";
 
-pub struct MaterialProductionSink<SinkType: DataSink> {
-    next_sink: SinkType,
+pub struct MaterialProductionSink {
+    next_sink: Box<dyn DataSink>,
     batches_by_material: HashMap<String, HashSet<String>>,
 }
 
-impl<SinkType: DataSink> MaterialProductionSink<SinkType> {
-    pub fn new(next_sink: SinkType) -> Self {
+impl MaterialProductionSink {
+    pub fn new(next_sink: Box<dyn DataSink>) -> Self {
         Self {
             next_sink,
             batches_by_material: HashMap::new(),
@@ -121,27 +120,28 @@ impl<SinkType: DataSink> MaterialProductionSink<SinkType> {
 
         let mut stmt = conn.prepare(&sql)?;
         for stat in self.stats() {
-            stmt.execute(rusqlite::params![stat.material_code, stat.production_count as i64])?;
+            stmt.execute(rusqlite::params![
+                stat.material_code,
+                stat.production_count as i64
+            ])?;
         }
 
         Ok(())
     }
 }
 
-impl<SinkType: DataSink> DataSink for MaterialProductionSink<SinkType> {
-    type NextType = SinkType;
-
+impl DataSink for MaterialProductionSink {
     fn sink(&mut self, data: &mut Data) -> Result<(), Error> {
         self.collect_valid_data(data);
         self.next_sink.sink(data)
     }
 
-    fn get_next_sink(&self) -> Result<Option<Self::NextType>, Error> {
+    fn get_next_sink(&self) -> Result<Option<Box<dyn DataSink>>, Error> {
         Ok(None)
     }
 }
 
-impl<SinkType: DataSink> Drop for MaterialProductionSink<SinkType> {
+impl Drop for MaterialProductionSink {
     fn drop(&mut self) {
         if let Err(e) = self.persist_stats_to_json() {
             eprintln!("material production sink write json failed: {}", e);

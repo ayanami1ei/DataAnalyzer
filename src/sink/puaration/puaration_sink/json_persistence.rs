@@ -10,7 +10,7 @@ use crate::{
     },
 };
 
-impl<SinkType: crate::sink::data_sink::DataSink> PuarationSink<SinkType> {
+impl PuarationSink {
     fn build_json_row(
         config: &PuarationSinkConfig,
         material_code: &str,

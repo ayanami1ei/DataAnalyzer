@@ -22,12 +22,13 @@ fn run_should_send_all_drain_data_to_sink_chain() {
     let next_sink_count = Arc::new(AtomicUsize::new(0));
     let sink = ForwardSink {
         sink_count: Arc::clone(&first_sink_count),
-        next_sink: LeafSink {
+        next_sink: Box::new(LeafSink {
             sink_count: Arc::clone(&next_sink_count),
-        },
+        }),
     };
 
-    let pipeline = ExtractorPipeline::new(reader, creater, sink, 0).expect("pipeline new");
+    let pipeline =
+        ExtractorPipeline::new(reader, creater, Box::new(sink), 0).expect("pipeline new");
     pipeline.run().expect("pipeline run");
 
     assert_eq!(first_sink_count.load(Ordering::Relaxed), 3);

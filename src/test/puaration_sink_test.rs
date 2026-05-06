@@ -37,7 +37,7 @@ fn build_data(
 
 #[test]
 fn sink_should_compute_puaration_with_distinct_vector_count_denominator() {
-    let mut sink = PuarationSink::new(EndSinkType {});
+    let mut sink = PuarationSink::new(Box::new(EndSinkType {}));
 
     let mut p1_v1 = build_data("P1", "1", "2", "3", "4", "5", "6", "7", "E1");
     let mut p1_v1_dup = build_data("P1", "1", "2", "3", "4", "5", "6", "7", "E1");

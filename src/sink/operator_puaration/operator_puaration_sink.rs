@@ -17,13 +17,13 @@ use crate::{
     },
 };
 
-pub struct OperatorPuarationSink<SinkType: DataSink> {
-    next_sink: SinkType,
+pub struct OperatorPuarationSink {
+    next_sink: Box<dyn DataSink>,
     config: OperatorPuarationSinkConfig,
     counts_by_operator: HashMap<String, HashMap<String, usize>>,
 }
 
-impl<SinkType: DataSink> OperatorPuarationSink<SinkType> {
+impl OperatorPuarationSink {
     fn load_config() -> OperatorPuarationSinkConfig {
         let Ok(text) = std::fs::read_to_string(OPERATOR_PUARATION_SINK_CONFIG_PATH) else {
             return OperatorPuarationSinkConfig::default();
@@ -32,7 +32,7 @@ impl<SinkType: DataSink> OperatorPuarationSink<SinkType> {
         serde_json::from_str::<OperatorPuarationSinkConfig>(&text).unwrap_or_default()
     }
 
-    pub fn new(next_sink: SinkType) -> Self {
+    pub fn new(next_sink: Box<dyn DataSink>) -> Self {
         Self {
             next_sink,
             config: Self::load_config(),
@@ -288,20 +288,18 @@ impl<SinkType: DataSink> OperatorPuarationSink<SinkType> {
     }
 }
 
-impl<SinkType: DataSink> DataSink for OperatorPuarationSink<SinkType> {
-    type NextType = SinkType;
-
+impl DataSink for OperatorPuarationSink {
     fn sink(&mut self, data: &mut Data) -> Result<(), Error> {
         self.collect_valid_data(data);
         self.next_sink.sink(data)
     }
 
-    fn get_next_sink(&self) -> Result<Option<Self::NextType>, Error> {
+    fn get_next_sink(&self) -> Result<Option<Box<dyn DataSink>>, Error> {
         Ok(None)
     }
 }
 
-impl<SinkType: DataSink> Drop for OperatorPuarationSink<SinkType> {
+impl Drop for OperatorPuarationSink {
     fn drop(&mut self) {
         if let Err(e) = self.persist_stats_to_json() {
             eprintln!("operator puaration sink write json failed: {}", e);

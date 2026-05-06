@@ -1,8 +1,5 @@
 use std::{
-    marker::PhantomData,
-    sync::atomic::{AtomicUsize, Ordering},
-    sync::{Arc, Mutex},
-    thread,
+    collections::HashMap, marker::PhantomData, sync::{Arc, Mutex, RwLock, atomic::{AtomicUsize, Ordering}}, thread
 };
 
 use crossbeam_channel::{Receiver, Sender, bounded};
@@ -20,22 +17,24 @@ const DATA_TO_SINK_BUFFER_SIZE: usize = 3000;
 const READ_PROGRESS_EVERY: usize = 5000;
 const CREATE_PROGRESS_EVERY: usize = 5000;
 
+//static mut SINK_REGISTER: Arc<RwLock<HashMap<String, Box<dyn DataSink>>>> =
+//    Arc::new(RwLock::new(HashMap::new()));
+
 struct PipelineLogger;
 impl LogSender for PipelineLogger {}
 
-pub struct ExtractorPipeline<ReaderType: DataReader, CreaterType: DataCreater, SinkType: DataSink> {
+pub struct ExtractorPipeline<ReaderType: DataReader, CreaterType: DataCreater> {
     reader: ReaderType,
     creater: CreaterType,
     data_buffer_front: Receiver<Vec<String>>,
     data_buffer_tail: Sender<Vec<String>>,
-    sink: SinkType,
+    sink: Box<dyn DataSink>,
     data_start_row: usize,
 
     _marker: PhantomData<Data>,
 }
 
-impl<ReaderType: DataReader, CreaterType: DataCreater, SinkType: DataSink>
-    ExtractorPipeline<ReaderType, CreaterType, SinkType>
+impl<ReaderType: DataReader, CreaterType: DataCreater> ExtractorPipeline<ReaderType, CreaterType>
 {
     fn creater_worker_count() -> usize {
         // 当前 creater 是共享 Mutex，过多 worker 会严重锁竞争
@@ -46,9 +45,9 @@ impl<ReaderType: DataReader, CreaterType: DataCreater, SinkType: DataSink>
     pub fn new(
         mut reader: ReaderType,
         mut creater: CreaterType,
-        sink: SinkType,
+        sink: Box<dyn DataSink>,
         indexing_row: usize,
-    ) -> Result<ExtractorPipeline<ReaderType, CreaterType, SinkType>, Error> {
+    ) -> Result<ExtractorPipeline<ReaderType, CreaterType>, Error> {
         let indexing_elements = reader.read_line(indexing_row)?;
         creater.set_row_elements(indexing_elements.clone())?;
         let (data_buffer_tail, data_buffer_front) = bounded::<Vec<String>>(RAW_LINE_BUFFER_SIZE);
@@ -126,7 +125,10 @@ impl<ReaderType: DataReader, CreaterType: DataCreater, SinkType: DataSink>
         Ok(())
     }
 
-    fn sink_thread(mut sink: SinkType, data_to_sink_front: Receiver<Data>) -> Result<(), Error> {
+    fn sink_thread(
+        mut sink: Box<dyn DataSink>,
+        data_to_sink_front: Receiver<Data>,
+    ) -> Result<(), Error> {
         while let Ok(mut data) = data_to_sink_front.recv() {
             // 单条数据失败只记录日志，不终止整个消费线程。
             if let Err(e) = sink.sink(&mut data) {
@@ -142,7 +144,6 @@ impl<ReaderType: DataReader, CreaterType: DataCreater, SinkType: DataSink>
         Data: Send + 'static,
         ReaderType: Send + 'static,
         CreaterType: Send + 'static,
-        SinkType: Send + 'static,
     {
         let ExtractorPipeline {
             reader,

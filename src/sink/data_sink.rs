@@ -1,10 +1,8 @@
 use crate::{data::data::Data, error::Error};
 
-pub trait DataSink {
-    type NextType: DataSink;
-
+pub trait DataSink: Send {
     fn sink(&mut self, data: &mut Data) -> Result<(), Error>;
-    fn get_next_sink(&self) -> Result<Option<Self::NextType>, Error>;
+    fn get_next_sink(&self) -> Result<Option<Box<dyn DataSink>>, Error>;
     fn forward(&self, data: &mut Data) -> Result<(), Error> {
         let next_sink_ptr = self.get_next_sink()?;
 

@@ -5,7 +5,7 @@ use crate::{
     },
 };
 
-impl<SinkType: crate::sink::data_sink::DataSink> PuarationSink<SinkType> {
+impl PuarationSink {
     pub(super) fn read_value_by_aliases(data: &Data, aliases: &[String]) -> Option<String> {
         for alias in aliases {
             let Some(pair) = data.get_pair(alias) else {

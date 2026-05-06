@@ -35,8 +35,8 @@ struct DbRuntimeConfig {
     progress_print_every: u64,
 }
 
-pub struct MysqlDatabaseSink<SinkType: DataSink> {
-    next_sink: SinkType,
+pub struct MysqlDatabaseSink {
+    next_sink: Box<dyn DataSink>,
     pool: Pool,
     table_name: String,
     ordered_columns: Vec<String>,
@@ -45,7 +45,7 @@ pub struct MysqlDatabaseSink<SinkType: DataSink> {
     pending_buffer: Vec<Data>,
 }
 
-impl<SinkType: DataSink> MysqlDatabaseSink<SinkType> {
+impl MysqlDatabaseSink {
     fn load_db_runtime_config(config_path: &str) -> Result<DbRuntimeConfig, Error> {
         let text = std::fs::read_to_string(config_path)?;
         let cfg: DatabaseConfigFile = serde_json::from_str(&text)?;
@@ -101,9 +101,9 @@ impl<SinkType: DataSink> MysqlDatabaseSink<SinkType> {
     }
 
     pub fn new(
-        next_sink: SinkType,
+        next_sink: Box<dyn DataSink>,
         config_path: &str,
-    ) -> Result<MysqlDatabaseSink<SinkType>, Error> {
+    ) -> Result<MysqlDatabaseSink, Error> {
         let runtime_cfg = Self::load_db_runtime_config(config_path)?;
 
         let opts = OptsBuilder::new()
@@ -221,9 +221,7 @@ impl<SinkType: DataSink> MysqlDatabaseSink<SinkType> {
     }
 }
 
-impl<SinkType: DataSink> DataSink for MysqlDatabaseSink<SinkType> {
-    type NextType = SinkType;
-
+impl DataSink for MysqlDatabaseSink {
     fn sink(&mut self, data: &mut Data) -> Result<(), Error> {
         self.pending_buffer.push(data.clone());
 
@@ -250,12 +248,12 @@ impl<SinkType: DataSink> DataSink for MysqlDatabaseSink<SinkType> {
         }
     }
 
-    fn get_next_sink(&self) -> Result<Option<Self::NextType>, Error> {
+    fn get_next_sink(&self) -> Result<Option<Box<dyn DataSink>>, Error> {
         Ok(None)
     }
 }
 
-impl<SinkType: DataSink> Drop for MysqlDatabaseSink<SinkType> {
+impl Drop for MysqlDatabaseSink {
     fn drop(&mut self) {
         if let Err(e) = self.flush_pending_buffer() {
             eprintln!("[database] flush pending buffer on drop failed: {}", e);

@@ -20,7 +20,8 @@ fn build_ready_data(inner_die: &str, outer_die: &str, core_od: &str, jacket_od: 
 
 #[test]
 fn sink_should_pass_when_inner_die_not_less_than_outer_die() {
-    let mut checker = DataChecker::new(EndSinkType {}, vec![Box::new(GeometryCheckRule::new())]);
+    let mut checker =
+        DataChecker::new(Box::new(EndSinkType {}), vec![Box::new(GeometryCheckRule::new())]);
     let mut data = build_ready_data("7.50", "7.50", "5.30", "9.90");
 
     let result = checker.sink(&mut data);
@@ -32,7 +33,8 @@ fn sink_should_pass_when_inner_die_not_less_than_outer_die() {
 
 #[test]
 fn sink_should_pass_when_core_od_not_less_than_jacket_od() {
-    let mut checker = DataChecker::new(EndSinkType {}, vec![Box::new(GeometryCheckRule::new())]);
+    let mut checker =
+        DataChecker::new(Box::new(EndSinkType {}), vec![Box::new(GeometryCheckRule::new())]);
     let mut data = build_ready_data("7.50", "14.50", "9.90", "9.90");
 
     let result = checker.sink(&mut data);
@@ -44,7 +46,8 @@ fn sink_should_pass_when_core_od_not_less_than_jacket_od() {
 
 #[test]
 fn sink_should_mark_data_valid_when_all_checks_pass() {
-    let mut checker = DataChecker::new(EndSinkType {}, vec![Box::new(GeometryCheckRule::new())]);
+    let mut checker =
+        DataChecker::new(Box::new(EndSinkType {}), vec![Box::new(GeometryCheckRule::new())]);
     let mut data = build_ready_data("7.50", "14.50", "5.30", "9.90");
 
     let result = checker.sink(&mut data);
@@ -56,7 +59,8 @@ fn sink_should_mark_data_valid_when_all_checks_pass() {
 
 #[test]
 fn sink_should_treat_zero_point_zero_zero_as_valid_numeric_value() {
-    let mut checker = DataChecker::new(EndSinkType {}, vec![Box::new(GeometryCheckRule::new())]);
+    let mut checker =
+        DataChecker::new(Box::new(EndSinkType {}), vec![Box::new(GeometryCheckRule::new())]);
     let mut data = build_ready_data("0.00", "1.00", "0.00", "1.00");
 
     let result = checker.sink(&mut data);

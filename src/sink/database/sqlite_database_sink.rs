@@ -30,8 +30,8 @@ struct DbRuntimeConfig {
     progress_print_every: u64,
 }
 
-pub struct SqliteDatabaseSink<SinkType: DataSink> {
-    next_sink: SinkType,
+pub struct SqliteDatabaseSink {
+    next_sink: Box<dyn DataSink>,
     conn: Connection,
     valid_table_name: String,
     invalid_table_name: String,
@@ -42,7 +42,7 @@ pub struct SqliteDatabaseSink<SinkType: DataSink> {
     invalid_pending_buffer: Vec<Data>,
 }
 
-impl<SinkType: DataSink> SqliteDatabaseSink<SinkType> {
+impl SqliteDatabaseSink {
     fn load_db_runtime_config(config_path: &str) -> Result<DbRuntimeConfig, Error> {
         let text = std::fs::read_to_string(config_path)?;
         let cfg: DatabaseConfigFile = serde_json::from_str(&text)?;
@@ -92,9 +92,9 @@ impl<SinkType: DataSink> SqliteDatabaseSink<SinkType> {
     }
 
     pub fn new(
-        next_sink: SinkType,
+        next_sink: Box<dyn DataSink>,
         config_path: &str,
-    ) -> Result<SqliteDatabaseSink<SinkType>, Error> {
+    ) -> Result<SqliteDatabaseSink, Error> {
         let runtime_cfg = Self::load_db_runtime_config(config_path)?;
 
         let db_path = std::path::Path::new(&runtime_cfg.sqlite_db_path);
@@ -214,9 +214,7 @@ impl<SinkType: DataSink> SqliteDatabaseSink<SinkType> {
     }
 }
 
-impl<SinkType: DataSink> DataSink for SqliteDatabaseSink<SinkType> {
-    type NextType = SinkType;
-
+impl DataSink for SqliteDatabaseSink {
     fn sink(&mut self, data: &mut Data) -> Result<(), Error> {
         if data.is_valid() {
             self.valid_pending_buffer.push(data.clone());
@@ -248,12 +246,12 @@ impl<SinkType: DataSink> DataSink for SqliteDatabaseSink<SinkType> {
         }
     }
 
-    fn get_next_sink(&self) -> Result<Option<Self::NextType>, Error> {
+    fn get_next_sink(&self) -> Result<Option<Box<dyn DataSink>>, Error> {
         Ok(None)
     }
 }
 
-impl<SinkType: DataSink> Drop for SqliteDatabaseSink<SinkType> {
+impl Drop for SqliteDatabaseSink {
     fn drop(&mut self) {
         if let Err(e) = self.flush_pending_buffer() {
             eprintln!("[sqlite] flush pending buffer on drop failed: {}", e);

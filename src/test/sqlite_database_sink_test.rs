@@ -48,7 +48,7 @@ fn sqlite_sink_should_split_valid_and_invalid_rows() {
     std::fs::write(cfg_path, cfg_text).expect("write sqlite test config");
 
     {
-        let end = EndSinkType {};
+        let end = Box::new(EndSinkType {});
         let mut sink = SqliteDatabaseSink::new(end, cfg_path).expect("new sqlite sink");
 
         let mut d1 = build_ready_data("B1", "M1");

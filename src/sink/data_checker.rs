@@ -1,12 +1,12 @@
 use crate::{checker::data_check_rule::DataCheckRule, error::Error, sink::data_sink::DataSink};
 
-pub struct DataChecker<SinkType: DataSink> {
-    next_sink: SinkType,
+pub struct DataChecker {
+    next_sink: Box<dyn DataSink>,
     rules: Vec<Box<dyn DataCheckRule>>,
 }
 
-impl<SinkType: DataSink> DataChecker<SinkType> {
-    pub fn new(next_sink: SinkType, rules: Vec<Box<dyn DataCheckRule>>) -> Self {
+impl DataChecker {
+    pub fn new(next_sink: Box<dyn DataSink>, rules: Vec<Box<dyn DataCheckRule>>) -> Self {
         Self { next_sink, rules }
     }
 
@@ -15,9 +15,7 @@ impl<SinkType: DataSink> DataChecker<SinkType> {
     }
 }
 
-impl<SinkType: DataSink> DataSink for DataChecker<SinkType> {
-    type NextType = SinkType;
-
+impl DataSink for DataChecker {
     fn sink(&mut self, data: &mut crate::data::data::Data) -> Result<(), Error> {
         data.reset_validation_state();
 
@@ -46,7 +44,7 @@ impl<SinkType: DataSink> DataSink for DataChecker<SinkType> {
         self.next_sink.sink(data)
     }
 
-    fn get_next_sink(&self) -> Result<Option<Self::NextType>, crate::error::Error> {
+    fn get_next_sink(&self) -> Result<Option<Box<dyn DataSink>>, crate::error::Error> {
         Ok(None)
     }
 }

@@ -20,6 +20,8 @@ pub mod log;
 pub mod progress_table;
 pub mod sink;
 pub mod traits;
+pub mod router;
+
 /*
 fn main() {
     // 构造最小数据集，验证 Data 的增删改查与序列化写文件链路。
@@ -97,17 +99,17 @@ fn main() -> Result<(), error::Error> {
     for (path, data_template, db_config_path, enable_geometry_rule) in jobs {
         let reader = ExcelReader::new(&path)?;
         let creater = WorkRecordCreater::new(data_template);
-        let end_sink = EndSinkType {};
+        let end_sink = Box::new(EndSinkType {});
         let stats_flow_sink = StatsFlowSink::new(end_sink);
-        let sqlite_sink = SqliteDatabaseSink::new(stats_flow_sink, &db_config_path)?;
+        let sqlite_sink = SqliteDatabaseSink::new(Box::new(stats_flow_sink), &db_config_path)?;
         let rules = if enable_geometry_rule {
             vec![Box::new(GeometryCheckRule::new())
                 as Box<dyn crate::checker::data_check_rule::DataCheckRule>]
         } else {
             Vec::new()
         };
-        let checker = DataChecker::new(sqlite_sink, rules);
-        let pipeline = ExtractorPipeline::new(reader, creater, checker, indexing_row)?;
+        let checker = DataChecker::new(Box::new(sqlite_sink), rules);
+        let pipeline = ExtractorPipeline::new(reader, creater, Box::new(checker), indexing_row)?;
         pipeline.run()?;
     }
 

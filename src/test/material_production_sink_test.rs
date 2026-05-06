@@ -15,7 +15,7 @@ fn build_data(material_code: &str, batch_no: &str) -> Data {
 
 #[test]
 fn sink_should_count_distinct_batch_by_material() {
-    let mut sink = MaterialProductionSink::new(EndSinkType {});
+    let mut sink = MaterialProductionSink::new(Box::new(EndSinkType {}));
 
     let mut m1_b1 = build_data("M1", "B1");
     let mut m1_b1_dup = build_data("M1", "B1");
