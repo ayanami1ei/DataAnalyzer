@@ -1,14 +1,17 @@
-use crate::{data::data::Data, error::Error};
+use std::sync::{Arc, Mutex, Weak};
 
-pub trait DataSink: Send {
-    fn sink(&mut self, data: &mut Data) -> Result<(), Error>;
-    fn get_next_sink(&self) -> Result<Option<Box<dyn DataSink>>, Error>;
-    fn forward(&self, data: &mut Data) -> Result<(), Error> {
-        let next_sink_ptr = self.get_next_sink()?;
+use async_trait::async_trait;
+use crate::{data::data::Data, error::Error, router::Router};
 
-        if let Some(mut next_sink) = next_sink_ptr {
-            next_sink.sink(data)?;
-        }
+#[async_trait]
+pub trait DataSink: Send + Sync {
+    fn new(config_path: &str) -> Self where Self: Sized;
+
+    async fn sink(&self, data: Arc<Mutex<Data>>) -> Result<(), Error>;
+
+    fn finish(&self) -> Result<(), Error> {
         Ok(())
     }
+
+    fn set_router(&self, _router: Weak<Router>) {}
 }

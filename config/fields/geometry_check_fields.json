@@ -1,0 +1,6 @@
+{
+    "inner_die": "挤出内模(mm)",
+    "outer_die": "挤出外模(mm)",
+    "core_od": "缆芯外径（mm)",
+    "jacket_od": "护套外径(mm)"
+}

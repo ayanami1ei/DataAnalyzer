@@ -1,8 +1,13 @@
+use std::sync::{Arc, Mutex};
+
 use crate::{
     data::data::Data,
     sink::{
-        data_sink::DataSink, database::sqlite_database_sink::SqliteDatabaseSink,
-        end_sink::EndSinkType,
+        data_sink::DataSink,
+        database::{
+            invalid_sqlite_sink::InvalidSqliteSink,
+            valid_sqlite_sink::ValidSqliteSink,
+        },
     },
 };
 
@@ -35,28 +40,25 @@ fn build_ready_data(batch_no: &str, material_name: &str) -> Data {
     data
 }
 
-#[test]
-fn sqlite_sink_should_split_valid_and_invalid_rows() {
-    let cfg_path = "target/sqlite_sink_test_config.json";
+#[tokio::test]
+async fn sqlite_sink_should_split_valid_and_invalid_rows() {
     let db_path = "target/sqlite_sink_test.db";
-
     let _ = std::fs::remove_file(db_path);
-    let cfg_text = format!(
-        "{{\n  \"sqlite_db_path\": \"{}\",\n  \"table_name\": \"work_record\",\n  \"columns\": [\n    \"批号\",\n    \"物料品名\",\n    \"实际生产速度（m/min）\",\n    \"缆芯外径（mm)\",\n    \"挤出内模(mm)\",\n    \"挤出外模(mm)\",\n    \"护套外径(mm)\",\n    \"螺杆速度(rpm)-(挤塑主机速度)（转/分）\",\n    \"螺杆电流（A）\",\n    \"生产速度（米/分）\"\n  ],\n  \"buffer_capacity\": 4,\n  \"flush_threshold\": 2,\n  \"progress_print_every\": 100\n}}",
-        db_path
-    );
-    std::fs::write(cfg_path, cfg_text).expect("write sqlite test config");
 
     {
-        let end = Box::new(EndSinkType {});
-        let mut sink = SqliteDatabaseSink::new(end, cfg_path).expect("new sqlite sink");
+        let valid_sink = ValidSqliteSink::new("config/test/valid_sqlite.json");
+        let invalid_sink = InvalidSqliteSink::new("config/test/invalid_sqlite.json");
 
-        let mut d1 = build_ready_data("B1", "M1");
-        let mut d2 = build_ready_data("B2", "M2");
-        d2.mark_invalid("test invalid reason".to_string());
+        let d1 = Arc::new(Mutex::new(build_ready_data("B1", "M1")));
 
-        sink.sink(&mut d1).expect("sink d1");
-        sink.sink(&mut d2).expect("sink d2");
+        let d2 = {
+            let mut data = build_ready_data("B2", "M2");
+            data.mark_invalid("test invalid reason".to_string());
+            Arc::new(Mutex::new(data))
+        };
+
+        valid_sink.sink(Arc::clone(&d1)).await.expect("sink d1");
+        invalid_sink.sink(Arc::clone(&d2)).await.expect("sink d2");
     }
 
     let conn = rusqlite::Connection::open(db_path).expect("open sqlite db");

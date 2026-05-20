@@ -1,0 +1,8 @@
+{
+    "purity_cap": 1.0,
+    "pct_divisor": 100.0,
+    "score_divisor": 3.0,
+    "default_pass_pct": 100.0,
+    "empty_value_indicator": "None",
+    "qualitative_pass_value": "OK"
+}

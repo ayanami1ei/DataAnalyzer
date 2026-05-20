@@ -1,0 +1,145 @@
+Date : 2026-05-20 09:34:21
+Directory : /home/ayanami/桌面/软件设计/DataAnalyzer/src
+Total : 88 files,  4567 codes, 8 comments, 778 blanks, all 5353 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Rust     |         88 |      4,567 |          8 |        778 |      5,353 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                   |         88 |      4,567 |          8 |        778 |      5,353 |
+| . (Files)                                                                                                           |          5 |        260 |          1 |         50 |        311 |
+| checker                                                                                                             |          3 |         46 |          1 |         11 |         58 |
+| data                                                                                                                |          9 |        298 |          0 |         65 |        363 |
+| data (Files)                                                                                                        |          3 |         14 |          0 |          4 |         18 |
+| data/data_impl                                                                                                      |          4 |        261 |          0 |         54 |        315 |
+| data/object_io                                                                                                      |          2 |         23 |          0 |          7 |         30 |
+| data_creater                                                                                                        |          4 |        229 |          0 |         45 |        274 |
+| data_creater (Files)                                                                                                |          1 |          2 |          0 |          2 |          4 |
+| data_creater/data_creater_impl                                                                                      |          3 |        227 |          0 |         43 |        270 |
+| extractor_pipeline                                                                                                  |          4 |        206 |          0 |         39 |        245 |
+| extractor_pipeline/core                                                                                             |          4 |        206 |          0 |         39 |        245 |
+| router                                                                                                              |          3 |        117 |          0 |         25 |        142 |
+| sink                                                                                                                |         45 |      2,496 |          0 |        374 |      2,870 |
+| sink (Files)                                                                                                        |          5 |        128 |          0 |         24 |        152 |
+| sink/database                                                                                                       |          8 |        587 |          0 |         85 |        672 |
+| sink/database (Files)                                                                                               |          5 |        238 |          0 |         41 |        279 |
+| sink/database/sqlite_sink                                                                                           |          3 |        349 |          0 |         44 |        393 |
+| sink/material_production                                                                                            |          3 |        143 |          0 |         25 |        168 |
+| sink/operator_puaration                                                                                             |          9 |        370 |          0 |         57 |        427 |
+| sink/operator_puaration (Files)                                                                                     |          6 |        123 |          0 |         19 |        142 |
+| sink/operator_puaration/sink                                                                                        |          3 |        247 |          0 |         38 |        285 |
+| sink/puaration                                                                                                      |         11 |        625 |          0 |         81 |        706 |
+| sink/puaration (Files)                                                                                              |          6 |        151 |          0 |         17 |        168 |
+| sink/puaration/puaration_sink                                                                                       |          5 |        474 |          0 |         64 |        538 |
+| sink/puaration/puaration_sink (Files)                                                                               |          2 |        261 |          0 |         35 |        296 |
+| sink/puaration/puaration_sink/persist                                                                               |          3 |        213 |          0 |         29 |        242 |
+| sink/quality_inspection                                                                                             |          6 |        505 |          0 |         77 |        582 |
+| sink/quality_inspection (Files)                                                                                     |          3 |        136 |          0 |         19 |        155 |
+| sink/quality_inspection/sink                                                                                        |          3 |        369 |          0 |         58 |        427 |
+| sink/stats_flow                                                                                                     |          3 |        138 |          0 |         25 |        163 |
+| test                                                                                                                |         15 |        915 |          6 |        169 |      1,090 |
+| test (Files)                                                                                                        |          9 |        769 |          6 |        139 |        914 |
+| test/extractor_pipeline                                                                                             |          6 |        146 |          0 |         30 |        176 |
++---------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                                                                            | language | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/checker/data_check_rule.rs                                                   | Rust     |          4 |          0 |          2 |          6 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/checker/geometry_check_rule.rs                                               | Rust     |         40 |          1 |          8 |         49 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/checker/mod.rs                                                               | Rust     |          2 |          0 |          1 |          3 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/data.rs                                                                 | Rust     |          1 |          0 |          1 |          2 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/data_impl/flow.rs                                                       | Rust     |         16 |          0 |          6 |         22 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/data_impl/mod.rs                                                        | Rust     |         98 |          0 |         21 |        119 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/data_impl/schema.rs                                                     | Rust     |         91 |          0 |         17 |        108 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/data_impl/value.rs                                                      | Rust     |         56 |          0 |         10 |         66 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/data_pair.rs                                                            | Rust     |          9 |          0 |          3 |         12 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/mod.rs                                                                  | Rust     |          4 |          0 |          0 |          4 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/object_io/config_reader.rs                                              | Rust     |         22 |          0 |          7 |         29 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data/object_io/mod.rs                                                        | Rust     |          1 |          0 |          0 |          1 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data_creater/data_creater_impl/batch.rs                                      | Rust     |         50 |          0 |          7 |         57 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data_creater/data_creater_impl/drain.rs                                      | Rust     |         57 |          0 |         18 |         75 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data_creater/data_creater_impl/mod.rs                                        | Rust     |        120 |          0 |         18 |        138 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/data_creater/mod.rs                                                          | Rust     |          2 |          0 |          2 |          4 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/error.rs                                                                     | Rust     |         22 |          0 |          8 |         30 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/excel_reader.rs                                                              | Rust     |         92 |          1 |         19 |        112 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/extractor_pipeline.rs                                                        | Rust     |          2 |          0 |          1 |          3 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/extractor_pipeline/core/mod.rs                                               | Rust     |         87 |          0 |         19 |        106 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/extractor_pipeline/core/reader.rs                                            | Rust     |         19 |          0 |          4 |         23 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/extractor_pipeline/core/sink.rs                                              | Rust     |         29 |          0 |          8 |         37 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/extractor_pipeline/core/worker.rs                                            | Rust     |         71 |          0 |          8 |         79 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/main.rs                                                                      | Rust     |        133 |          0 |         19 |        152 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/router/mod.rs                                                                | Rust     |         83 |          0 |         16 |         99 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/router/route.rs                                                              | Rust     |         15 |          0 |          4 |         19 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/router/toml_reader.rs                                                        | Rust     |         19 |          0 |          5 |         24 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/data_checker.rs                                                         | Rust     |         82 |          0 |         11 |         93 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/data_sink.rs                                                            | Rust     |         14 |          0 |          6 |         20 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/database/invalid_sqlite_sink.rs                                         | Rust     |         50 |          0 |         11 |         61 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/database/mod.rs                                                         | Rust     |          5 |          0 |          1 |          6 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/database/sqlite_database_sink.rs                                        | Rust     |          2 |          0 |          1 |          3 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/database/sqlite_sink/config.rs                                          | Rust     |         69 |          0 |         11 |         80 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/database/sqlite_sink/flush.rs                                           | Rust     |        101 |          0 |         13 |        114 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/database/sqlite_sink/mod.rs                                             | Rust     |        179 |          0 |         20 |        199 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/database/sqlite_writer.rs                                               | Rust     |        131 |          0 |         17 |        148 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/database/valid_sqlite_sink.rs                                           | Rust     |         50 |          0 |         11 |         61 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/end_sink.rs                                                             | Rust     |         17 |          0 |          6 |         23 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/material_production/material_production_sink.rs                         | Rust     |        133 |          0 |         21 |        154 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/material_production/material_production_stat.rs                         | Rust     |          6 |          0 |          2 |          8 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/material_production/mod.rs                                              | Rust     |          4 |          0 |          2 |          6 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/mod.rs                                                                  | Rust     |         10 |          0 |          0 |         10 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/mod.rs                                               | Rust     |         10 |          0 |          3 |         13 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/operator_output_metric_columns.rs                    | Rust     |          9 |          0 |          2 |         11 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/operator_parser.rs                                   | Rust     |         29 |          0 |          8 |         37 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/operator_puaration_sink.rs                           | Rust     |          1 |          0 |          1 |          2 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/operator_puaration_sink_config.rs                    | Rust     |         66 |          0 |          4 |         70 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/operator_puaration_stat.rs                           | Rust     |          8 |          0 |          1 |          9 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/sink/mod.rs                                          | Rust     |         87 |          0 |         12 |         99 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/sink/persist.rs                                      | Rust     |         95 |          0 |         15 |        110 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/operator_puaration/sink/stats.rs                                        | Rust     |         65 |          0 |         11 |         76 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/mod.rs                                                        | Rust     |          9 |          0 |          3 |         12 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/output_metric_columns.rs                                      | Rust     |         11 |          0 |          2 |         13 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/process_vector.rs                                             | Rust     |          9 |          0 |          2 |         11 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/puaration_sink/mod.rs                                         | Rust     |        173 |          0 |         22 |        195 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/puaration_sink/persist/main.rs                                | Rust     |        140 |          0 |         18 |        158 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/puaration_sink/persist/mod.rs                                 | Rust     |          2 |          0 |          1 |          3 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/puaration_sink/persist/top_n.rs                               | Rust     |         71 |          0 |         10 |         81 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/puaration_sink/stats.rs                                       | Rust     |         88 |          0 |         13 |        101 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/puaration_sink_config.rs                                      | Rust     |         70 |          0 |          4 |         74 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/puaration_stat.rs                                             | Rust     |         46 |          0 |          4 |         50 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/puaration/vector_field_config.rs                                        | Rust     |          6 |          0 |          2 |          8 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/quality_inspection/mod.rs                                               | Rust     |          6 |          0 |          2 |          8 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/quality_inspection/quality_param.rs                                     | Rust     |         92 |          0 |         13 |        105 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/quality_inspection/quality_stat.rs                                      | Rust     |         38 |          0 |          4 |         42 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/quality_inspection/sink/mod.rs                                          | Rust     |        110 |          0 |         22 |        132 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/quality_inspection/sink/persist.rs                                      | Rust     |        105 |          0 |         13 |        118 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/quality_inspection/sink/process.rs                                      | Rust     |        154 |          0 |         23 |        177 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/regist_info.rs                                                          | Rust     |          5 |          0 |          1 |          6 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/stats_flow/mod.rs                                                       | Rust     |          4 |          0 |          3 |          7 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/stats_flow/stats_flow_config.rs                                         | Rust     |         17 |          0 |          3 |         20 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/sink/stats_flow/stats_flow_sink.rs                                           | Rust     |        117 |          0 |         19 |        136 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/data_checker_test.rs                                                    | Rust     |         62 |          0 |         15 |         77 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/extractor_pipeline/forward_sink.rs                                      | Rust     |         28 |          0 |          6 |         34 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/extractor_pipeline/leaf_sink.rs                                         | Rust     |         25 |          0 |          6 |         31 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/extractor_pipeline/mock_creater.rs                                      | Rust     |         46 |          0 |          8 |         54 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/extractor_pipeline/mock_reader.rs                                       | Rust     |         16 |          0 |          4 |         20 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/extractor_pipeline/mod.rs                                               | Rust     |          5 |          0 |          1 |          6 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/extractor_pipeline/run_should_send_all_drain_data_to_sink_chain_test.rs | Rust     |         26 |          0 |          5 |         31 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/material_production_sink_test.rs                                        | Rust     |         34 |          0 |          9 |         43 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/mod.rs                                                                  | Rust     |          9 |          0 |          1 |         10 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/operator_parser_test.rs                                                 | Rust     |         18 |          0 |          4 |         22 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/operator_puaration_sink_test.rs                                         | Rust     |         71 |          0 |         10 |         81 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/puaration_sink_test.rs                                                  | Rust     |        223 |          5 |         34 |        262 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/quality_inspection_sink_test.rs                                         | Rust     |        122 |          1 |         33 |        156 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/quality_param_test.rs                                                   | Rust     |        152 |          0 |         19 |        171 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/test/sqlite_database_sink_test.rs                                            | Rust     |         78 |          0 |         14 |         92 |
+| /home/ayanami/桌面/软件设计/DataAnalyzer/src/traits.rs                                                                    | Rust     |         11 |          0 |          3 |         14 |
+| Total                                                                                                               |          |      4,567 |          8 |        778 |      5,353 |
++---------------------------------------------------------------------------------------------------------------------+----------+------------+------------+------------+------------+

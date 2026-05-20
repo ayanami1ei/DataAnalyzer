@@ -1,0 +1,5 @@
+{
+    "database_config": "config/database/database_config.json",
+    "table_name": "work_record_invalid",
+    "flow_state": "invalid_sqlite"
+}

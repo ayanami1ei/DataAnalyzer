@@ -1,15 +1,10 @@
+// 测试模块入口，声明所有子测试模块
 pub mod data_checker_test;
-pub mod data_creater_test;
-pub mod db_fetcher;
-pub mod error_checker;
 pub mod extractor_pipeline;
-pub mod geometry_error_entry;
-pub mod log_check_validator;
-pub mod log_entry;
-pub mod log_parser;
 pub mod material_production_sink_test;
 pub mod operator_parser_test;
 pub mod operator_puaration_sink_test;
 pub mod puaration_sink_test;
 pub mod sqlite_database_sink_test;
-pub mod test_log_check;
+pub mod quality_param_test;
+pub mod quality_inspection_sink_test;

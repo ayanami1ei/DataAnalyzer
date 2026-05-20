@@ -41,6 +41,5 @@
     "distinct_vector_count": "不同向量数量",
     "purity": "纯度"
   },
-  "result_json_path": "data/operator_puaration_stats.json",
   "database_config_path": "config/database/operator_puaration_database_config.json"
 }

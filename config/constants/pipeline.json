@@ -1,0 +1,12 @@
+{
+    "raw_line_buffer_size": 3000,
+    "data_to_sink_buffer_size": 3000,
+    "db_buffer_capacity": 3000,
+    "db_flush_threshold": 2500,
+    "top_n_count": 5,
+    "top_n_table_name": "puaration_top_n",
+    "top_n_columns": [
+        "物料品号", "工艺参数向量", "出现次数", "不同向量数量",
+        "纯度", "定量IsOK百分比", "定性IsOK百分比", "综合得分", "排名"
+    ]
+}

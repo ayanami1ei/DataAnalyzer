@@ -1,9 +1,7 @@
 {
-  "host": "127.0.0.1",
-  "user": "SoftWareDesign",
-  "password": "SWD#user#local#2026",
-  "db_name": "工序记录明细",
+  "sqlite_db_path": "data/work_record.db",
   "table_name": "work_record",
+  "invalid_table_name": "work_record_invalid",
   "columns": [
     "批号",
     "物料品名",
@@ -20,6 +18,5 @@
     "生产速度（米/分）"
   ],
   "buffer_capacity": 3000,
-  "flush_threshold": 2500,
-  "progress_print_every": 100
+  "flush_threshold": 2500
 }

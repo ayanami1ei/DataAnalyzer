@@ -1,0 +1,12 @@
+{
+    "sqlite_db_path": "target/sqlite_sink_test.db",
+    "table_name": "work_record",
+    "invalid_table_name": "work_record_invalid",
+    "columns": [
+        "批号", "物料品名", "实际生产速度（m/min）", "缆芯外径（mm)",
+        "挤出内模(mm)", "挤出外模(mm)", "护套外径(mm)",
+        "螺杆速度(rpm)-(挤塑主机速度)（转/分）", "螺杆电流（A）", "生产速度（米/分）"
+    ],
+    "buffer_capacity": 4,
+    "flush_threshold": 2
+}

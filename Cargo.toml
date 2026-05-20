@@ -4,10 +4,17 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+async-trait = "0.1"
 calamine = "0.34.0"
-crossbeam-channel = "0.5.15"
-mysql = "28.0.0"
+inventory = "0.3.24"
 rusqlite = { version = "0.32.1", features = ["bundled"] }
-serde = "1.0.228"
+serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.149"
 thiserror = "2.0.18"
+tokio = { version = "1", features = ["full"] }
+toml = "1.1.2"
+
+sink_macro = { path = "sink_macro" }
+tracing = "0.1.44"
+tracing-subscriber = "0.3.19"
+tracing-appender = "0.2.3"

@@ -1,0 +1,5 @@
+{
+    "database_config": "config/database/quality_database_config.json",
+    "table_name": "quality_inspection",
+    "flow_state": "valid_sqlite"
+}

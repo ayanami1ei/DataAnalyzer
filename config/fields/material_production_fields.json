@@ -1,0 +1,5 @@
+{
+    "material_aliases": ["物料品号", "物料品名"],
+    "batch_aliases": ["批号"],
+    "columns": ["物料品号", "生产次数"]
+}

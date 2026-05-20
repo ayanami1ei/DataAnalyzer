@@ -1,15 +1,22 @@
 use serde::Deserialize;
 
 use crate::sink::puaration::{
-    output_metric_columns::OutputMetricColumns, vector_field_config::VectorFieldConfig,
+    output_metric_columns::OutputMetricColumns,
+    vector_field_config::VectorFieldConfig,
 };
 
+// 工艺参数汇聚（puaration）下沉器的全部配置
 #[derive(Clone, Debug, Deserialize)]
 pub struct PuarationSinkConfig {
+    // 物料品号的字段别名列表
     pub material_code_aliases: Vec<String>,
+    // 批号的字段别名列表
+    pub batch_code_aliases: Vec<String>,
+    // 构成工艺参数向量的各个字段配置
     pub vector_fields: Vec<VectorFieldConfig>,
+    // 输出指标列的名称配置
     pub output_metrics: OutputMetricColumns,
-    pub result_json_path: String,
+    // 数据库配置文件路径
     pub database_config_path: String,
 }
 
@@ -17,54 +24,18 @@ impl Default for PuarationSinkConfig {
     fn default() -> Self {
         Self {
             material_code_aliases: vec!["物料品号".to_string(), "物料品名".to_string()],
-            vector_fields: vec![
-                VectorFieldConfig {
-                    aliases: vec!["缆芯外径".to_string(), "缆芯外径（mm)".to_string()],
-                    output_column: "缆芯外径".to_string(),
-                },
-                VectorFieldConfig {
-                    aliases: vec!["护套外径".to_string(), "护套外径(mm)".to_string()],
-                    output_column: "护套外径".to_string(),
-                },
-                VectorFieldConfig {
-                    aliases: vec!["挤出内模".to_string(), "挤出内模(mm)".to_string()],
-                    output_column: "挤出内模".to_string(),
-                },
-                VectorFieldConfig {
-                    aliases: vec!["挤出外模".to_string(), "挤出外模(mm)".to_string()],
-                    output_column: "挤出外模".to_string(),
-                },
-                VectorFieldConfig {
-                    aliases: vec![
-                        "螺杆速度".to_string(),
-                        "螺杆速度(rpm)-(挤塑主机速度)（转/分）".to_string(),
-                    ],
-                    output_column: "螺杆速度".to_string(),
-                },
-                VectorFieldConfig {
-                    aliases: vec!["螺杆电流".to_string(), "螺杆电流（A）".to_string()],
-                    output_column: "螺杆电流".to_string(),
-                },
-                VectorFieldConfig {
-                    aliases: vec![
-                        "实际生产速度".to_string(),
-                        "实际生产速度（m/min）".to_string(),
-                    ],
-                    output_column: "实际生产速度".to_string(),
-                },
-                VectorFieldConfig {
-                    aliases: vec!["设备名称".to_string()],
-                    output_column: "设备名称".to_string(),
-                },
-            ],
+            batch_code_aliases: vec!["批号".to_string()],
+            // 默认参与向量计算的字段列表，引用公共默认值
+            vector_fields: VectorFieldConfig::default_vector_fields(),
             output_metrics: OutputMetricColumns {
                 material_code: "物料品号".to_string(),
                 process_vector: "工艺参数向量".to_string(),
                 occurrence_count: "出现次数".to_string(),
                 distinct_vector_count: "不同向量数量".to_string(),
                 purity: "纯度".to_string(),
+                quant_isok_pct: "定量IsOK百分比".to_string(),
+                qual_isok_pct: "定性IsOK百分比".to_string(),
             },
-            result_json_path: "data/puaration_stats.json".to_string(),
             database_config_path: "config/database/puaration_database_config.json".to_string(),
         }
     }

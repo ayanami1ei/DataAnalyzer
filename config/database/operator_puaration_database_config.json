@@ -1,5 +1,5 @@
 {
   "sqlite_db_path": "data/operator_puaration_stats.db",
   "table_name": "operator_puaration_stats",
-  "columns": ["操机手", "工艺参数向量", "出现次数", "不同向量数量", "纯度"]
+  "columns": ["操机手", "缆芯外径", "护套外径", "挤出内模", "挤出外模", "螺杆速度", "螺杆电流", "实际生产速度", "设备名称", "出现次数", "不同向量数量", "纯度"]
 }

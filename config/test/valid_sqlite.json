@@ -1,0 +1,1 @@
+{"database_config": "config/test/db_config.json", "table_name": "work_record", "flow_state": "valid_sqlite"}

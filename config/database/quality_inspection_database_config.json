@@ -1,0 +1,16 @@
+{
+  "sqlite_db_path": "data/quality_inspection.db",
+  "table_name": "quality_inspection",
+  "columns": [
+    "批号",
+    "物料品名",
+    "检查项目",
+    "检验参数",
+    "参数类型",
+    "下界",
+    "上界",
+    "检验值",
+    "原始IsOK",
+    "正确IsOK"
+  ]
+}

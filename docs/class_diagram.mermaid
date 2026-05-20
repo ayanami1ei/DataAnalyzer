@@ -1,0 +1,99 @@
+---
+title: DataAnalyzer 核心类图
+---
+
+classDiagram
+    direction TB
+
+    class ExtractorPipeline~R, C~ {
+        -reader: R
+        -creater: C
+        -sink: Box~DataSink~
+        +new(reader, creater, sink, row)~Result~
+        +run()~Result~
+    }
+
+    class DataReader {
+        <<interface>>
+        +read_line(index) Vec~String~
+        +max_line() usize
+    }
+
+    class DataCreater {
+        <<interface>>
+        +set_row_elements(elements)
+        +create_by_batch(batch) Vec~Data~
+        +drain_all_data() Vec~Data~
+    }
+
+    class DataSink {
+        <<interface>>
+        +sink(data)~Result~
+        +finish()~Result~
+        +set_router(router)
+    }
+
+    class DataCheckRule {
+        <<interface>>
+        +check(data)~Result~
+    }
+
+    class Data {
+        -flow_state_set: BTreeSet~String~
+        -is_valid: bool
+        -value_dict: HashMap~String, DataPair~
+        +is_valid() bool
+        +is_ready() bool
+        +mark_invalid(reason)
+    }
+
+    class Router {
+        -route_map: HashMap~BTreeSet~String~~, Arc~DataSink~~
+        +attach_router(router)
+        +finish_all()
+        +route_data(data)
+    }
+
+    class DataChecker {
+        -rules: Vec~Box~DataCheckRule~~
+        -router: Weak~Router~
+    }
+
+    class ValidSqliteSink
+
+    class InvalidSqliteSink
+
+    class PuarationSink
+
+    class OperatorPuarationSink
+
+    class MaterialProductionSink
+
+    class QualityInspectionSink
+
+    class EndSinkType
+
+    %% 关系
+    ExtractorPipeline~R, C~ --> DataReader : uses
+    ExtractorPipeline~R, C~ --> DataCreater : uses
+    ExtractorPipeline~R, C~ --> DataSink : holds
+
+    DataSink <|.. DataChecker
+    DataSink <|.. ValidSqliteSink
+    DataSink <|.. InvalidSqliteSink
+    DataSink <|.. PuarationSink
+    DataSink <|.. OperatorPuarationSink
+    DataSink <|.. MaterialProductionSink
+    DataSink <|.. QualityInspectionSink
+    DataSink <|.. EndSinkType
+    DataSink <|.. Router
+
+    DataChecker --> Router : routes to
+    DataChecker --> DataCheckRule : applies
+    Router --> ValidSqliteSink : dispatches
+    Router --> InvalidSqliteSink : dispatches
+    Router --> PuarationSink : dispatches
+    Router --> OperatorPuarationSink : dispatches
+    Router --> MaterialProductionSink : dispatches
+    Router --> QualityInspectionSink : dispatches
+    Router --> EndSinkType : dispatches

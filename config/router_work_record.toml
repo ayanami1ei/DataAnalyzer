@@ -1,0 +1,49 @@
+[[routes]]
+when = ["valid"]
+to = "DataChecker"
+
+[[routes]]
+when = ["invalid"]
+to = "DataChecker"
+
+[[routes]]
+when = ["checked", "valid"]
+to = "ValidSqliteSink"
+
+[[routes]]
+when = ["checked", "invalid"]
+to = "InvalidSqliteSink"
+
+[[routes]]
+when = ["checked", "valid", "valid_sqlite"]
+to = "QualityInspectionSink"
+
+[[routes]]
+when = ["checked", "valid", "valid_sqlite", "quality_inspection"]
+to = "PuarationSink"
+
+[[routes]]
+when = ["checked", "valid", "valid_sqlite", "quality_inspection", "puaration"]
+to = "OperatorPuarationSink"
+
+[[routes]]
+when = ["checked", "valid", "valid_sqlite", "quality_inspection", "puaration", "operator_puaration"]
+to = "MaterialProductionSink"
+
+[[routes]]
+when = ["checked", "valid", "valid_sqlite", "quality_inspection", "puaration", "operator_puaration", "material_production"]
+to = "EndSinkType"
+
+[[routes]]
+when = ["checked", "invalid", "invalid_sqlite"]
+to = "EndSinkType"
+
+[sinks]
+DataChecker = "config/sinks/data_checker_work_record.json"
+ValidSqliteSink = "config/sinks/valid_sqlite_work_record.json"
+InvalidSqliteSink = "config/sinks/invalid_sqlite_work_record.json"
+QualityInspectionSink = "config/sinks/quality_inspection.json"
+PuarationSink = "config/sinks/puaration.json"
+OperatorPuarationSink = "config/sinks/operator_puaration.json"
+MaterialProductionSink = "config/sinks/material_production.json"
+EndSinkType = "config/sinks/end_sink.json"

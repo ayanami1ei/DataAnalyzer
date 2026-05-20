@@ -1,0 +1,22 @@
+[[routes]]
+when = ["valid"]
+to = "DataChecker"
+
+[[routes]]
+when = ["checked", "valid"]
+to = "ValidSqliteSink"
+
+[[routes]]
+when = ["checked", "valid", "valid_sqlite"]
+to = "QualityInspectionSink"
+
+[[routes]]
+when = ["checked", "valid", "valid_sqlite", "quality_inspection"]
+to = "EndSinkType"
+
+[sinks]
+DataChecker = "config/sinks/data_checker_quality.json"
+ValidSqliteSink = "config/sinks/valid_sqlite_quality.json"
+InvalidSqliteSink = "config/sinks/invalid_sqlite_quality.json"
+QualityInspectionSink = "config/sinks/quality_inspection.json"
+EndSinkType = "config/sinks/end_sink.json"

@@ -1,5 +1,6 @@
 {
   "material_code_aliases": ["物料品号", "物料品名"],
+  "batch_code_aliases": ["批号"],
   "vector_fields": [
     {
       "aliases": ["缆芯外径", "缆芯外径（mm)"],
@@ -39,8 +40,9 @@
     "process_vector": "工艺参数向量",
     "occurrence_count": "出现次数",
     "distinct_vector_count": "不同向量数量",
-    "purity": "纯度"
+    "purity": "纯度",
+    "quant_isok_pct": "定量IsOK百分比",
+    "qual_isok_pct": "定性IsOK百分比"
   },
-  "result_json_path": "data/puaration_stats.json",
   "database_config_path": "config/database/puaration_database_config.json"
 }

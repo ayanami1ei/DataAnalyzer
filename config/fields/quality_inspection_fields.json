@@ -1,0 +1,17 @@
+{
+    "check_item": "检查项目",
+    "param_raw": "检验参数(标准参数为数字时无需填写)",
+    "test_value": "检验值",
+    "isok": "IsOK",
+    "batch_no": "批号",
+    "material_name": "物料品名",
+    "material_code": "物料品号",
+    "detail_columns": [
+        "批号", "物料品名", "检查项目", "检验参数", "参数类型",
+        "下界", "上界", "检验值", "原始IsOK", "正确IsOK"
+    ],
+    "error_columns": [
+        "批号", "物料品名", "检查项目", "检验参数", "检验值",
+        "期望IsOK", "实际IsOK"
+    ]
+}

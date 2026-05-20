@@ -1,0 +1,4 @@
+{
+    "output_db_path": "data/material_production_stats.db",
+    "table_name": "material_production_stats"
+}
